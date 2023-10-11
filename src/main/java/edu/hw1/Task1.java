@@ -1,29 +1,32 @@
 package edu.hw1;
 
+import java.util.regex.Pattern;
+
 @SuppressWarnings("ConstantName")
 public final class Task1 {
 
-    private final static int secondsInMinute = 60;
+    private static final int SECONDSINMINUTE = 60;
+    private static final Pattern PATTERN = Pattern.compile("[0-9]+");
 
     private Task1() {}
 
     public static int minutesToSeconds(String time) {
+
         String[] dividedTime = time.split(":");
-        String regex = "[0-9]+";
 
         if (dividedTime.length != 2) {
             return -1;
         }
 
-        if (!((dividedTime[0].matches(regex))) && (dividedTime[1].matches(regex))) {
+        if (!(PATTERN.matcher(dividedTime[0]).matches()) && (PATTERN.matcher(dividedTime[1]).matches())) {
             return -1;
         }
 
-        if (Integer.parseInt(dividedTime[1]) >= secondsInMinute) {
+        if (Integer.parseInt(dividedTime[1]) >= SECONDSINMINUTE) {
             return -1;
         }
 
-        return Integer.parseInt(dividedTime[0]) * secondsInMinute + Integer.parseInt(dividedTime[1]);
+        return Integer.parseInt(dividedTime[0]) * SECONDSINMINUTE + Integer.parseInt(dividedTime[1]);
     }
 
 }
