@@ -1,6 +1,5 @@
 package edu.hw1;
 
-@SuppressWarnings("LineLength")
 public final class Task7 {
 
     private static final int RADIX = 2;
@@ -9,26 +8,26 @@ public final class Task7 {
 
     public static int rotateLeft(int number, int shift) {
 
-        if (!isValid(number)) {
+        if (isNotValid(number)) {
             return 0;
         }
 
-        String numberString = getBinaryNumber(number);
-        int shiftShorten = shift % numberString.length();
-        numberString = numberString.substring(shiftShorten) + numberString.substring(0, shiftShorten);
-        return Integer.parseInt(numberString, RADIX);
+        String numStr = getBinaryNumber(number);
+        int shiftMin = shift % numStr.length();
+        numStr = numStr.substring(shiftMin) + numStr.substring(0, shiftMin);
+        return Integer.parseInt(numStr, RADIX);
     }
 
     public static int rotateRight(int number, int shift) {
 
-        if (!isValid(number)) {
+        if (isNotValid(number)) {
             return 0;
         }
 
-        String numberString = getBinaryNumber(number);
-        int shiftShorten = shift % numberString.length();
-        numberString = numberString.substring(numberString.length() - shiftShorten) + numberString.substring(0, numberString.length() - shiftShorten);
-        return Integer.parseInt(numberString, RADIX);
+        String numStr = getBinaryNumber(number);
+        int shiftMin = shift % numStr.length();
+        numStr = numStr.substring(numStr.length() - shiftMin) + numStr.substring(0, numStr.length() - shiftMin);
+        return Integer.parseInt(numStr, RADIX);
     }
 
     private static String getBinaryNumber(int number) {
@@ -44,8 +43,8 @@ public final class Task7 {
         return stringNumber.reverse().toString();
     }
 
-    private static boolean isValid(int number) {
-        return number > 0;
+    private static boolean isNotValid(int number) {
+        return number <= 0;
     }
 
 }

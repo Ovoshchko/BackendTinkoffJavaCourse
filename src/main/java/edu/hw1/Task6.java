@@ -3,17 +3,18 @@ package edu.hw1;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 
-@SuppressWarnings({"ConstantName", "MagicNumber"})
 public final class Task6 {
 
-    private static final int KAPREKARCONST = 6174;
+    private static final int KAPREKAR_CONST = 6174;
+    private static final int RADIX = 10;
+    private static final int LOWER_NUMBER_LIMIT = 1000;
     private static final Pattern PATTERN = Pattern.compile("^(?!(\\d)\\1{3}$)\\d{4}$");
 
     private Task6() {}
 
     public static int countK(int number) {
 
-        if (!isValid(number)) {
+        if (isNotValid(number)) {
             return -1;
         }
 
@@ -22,16 +23,16 @@ public final class Task6 {
 
     private static int countKConst(int number) {
 
-        if (number == KAPREKARCONST) {
+        if (number == KAPREKAR_CONST) {
             return 0;
         }
 
         return 1 + countKConst(getAscendingNumber(number) - getDescendingNumber(number));
     }
 
-    private static boolean isValid(int number) {
+    private static boolean isNotValid(int number) {
         String numberString = Integer.toString(number);
-        return PATTERN.matcher(numberString).matches() && !(number <= 1000);
+        return !PATTERN.matcher(numberString).matches() || (number <= LOWER_NUMBER_LIMIT);
     }
 
     private static int getAscendingNumber(int number) {
@@ -53,7 +54,7 @@ public final class Task6 {
 
         String numberString = new String(digits);
 
-        return Integer.parseInt(numberString, 10);
+        return Integer.parseInt(numberString, RADIX);
     }
 
     private static char[] reverseCharArray(char[] array) {

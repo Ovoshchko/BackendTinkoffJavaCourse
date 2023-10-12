@@ -1,12 +1,10 @@
 package edu.hw1;
 
-import java.util.logging.Logger;
-
-@SuppressWarnings({"ConstantName", "MagicNumber"})
 public final class Task5 {
 
-    private static final int MINLENGTH = 2;
-    private static final Logger log = Logger.getLogger(Task5.class.getName());
+    private static final int MIN_LENGTH = 2;
+    private static final int UNITS = 10;
+    private static final int  TENS = 100;
 
     private Task5() {}
 
@@ -37,15 +35,15 @@ public final class Task5 {
         StringBuilder numberString = new StringBuilder();
 
         while (copiedNumber > 0) {
-            numberString.insert(0, copiedNumber % 10 + (copiedNumber % 100) / 10);
-            copiedNumber /= 100;
+            numberString.insert(0, copiedNumber % UNITS + (copiedNumber % TENS) / UNITS);
+            copiedNumber /= TENS;
         }
 
         return Integer.parseInt(numberString.toString());
     }
 
     private static boolean isValid(Integer number) {
-        return !((number == null) || (getNumberLength(number) < MINLENGTH));
+        return !((number == null) || (getNumberLength(number) < MIN_LENGTH));
     }
 
     private static boolean isPalindrome(Integer number) {

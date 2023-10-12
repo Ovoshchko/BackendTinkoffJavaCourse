@@ -1,19 +1,18 @@
 package edu.hw1;
 
-@SuppressWarnings("ConstantName")
 public final class Task4 {
 
-    private static final int MINLENGTH = 2;
+    private static final int MIN_LENGTH = 2;
 
     private Task4() {}
 
     public static String fixString(String input) {
 
-        if (!isValid(input)) {
+        if (isNotValid(input)) {
             return "";
         }
 
-        if (input.length() < MINLENGTH) {
+        if (input.length() < MIN_LENGTH) {
             return input;
         }
 
@@ -29,8 +28,8 @@ public final class Task4 {
         return copiedInput.toString();
     }
 
-    private static boolean isValid(String input) {
-        return !(input == null || input.isEmpty());
+    private static boolean isNotValid(String input) {
+        return input == null || input.isEmpty();
     }
 
 }

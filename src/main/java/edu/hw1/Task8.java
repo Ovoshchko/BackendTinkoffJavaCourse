@@ -9,7 +9,7 @@ public final class Task8 {
 
     public static boolean knightBoardCapture(int[][] board) throws Exception {
 
-        if (!isValid(board)) {
+        if (isNotValid(board)) {
             throw new Exception("Invalid input"); //просто вернуть false как-будто не совсем корректно
         }
 
@@ -28,25 +28,25 @@ public final class Task8 {
         return true;
     }
 
-    private static boolean isValid(int[][] board) {
+    private static boolean isNotValid(int[][] board) {
 
         if (board == null) {
-            return false;
+            return true;
         }
 
         if (board.length != BOARD_SIZE) {
-            return false;
+            return true;
         }
 
         for (int i = 0; i < BOARD_SIZE; i++) {
 
             if (board[i].length != BOARD_SIZE) {
-                return false;
+                return true;
             }
 
         }
 
-        return true;
+        return false;
     }
 
     private static boolean canCapture(int[][] board, int x, int y) {

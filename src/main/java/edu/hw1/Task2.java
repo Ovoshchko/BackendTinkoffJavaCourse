@@ -1,7 +1,8 @@
 package edu.hw1;
 
-@SuppressWarnings("MagicNumber")
 public final class Task2 {
+
+    private static final int REGEX = 10;
 
     private Task2() {}
 
@@ -11,7 +12,7 @@ public final class Task2 {
 
         while (copiedNumber > 0) {
             count++;
-            copiedNumber /= 10;
+            copiedNumber /= REGEX;
         }
 
         return count;
