@@ -7,7 +7,7 @@ public class RetryExecutor {
 
     private final ConnectionManager manager;
     private final int maxAttempts;
-    private final Logger LOGGER = LogManager.getLogger(RetryExecutor.class);
+    private final static Logger LOGGER = LogManager.getLogger(RetryExecutor.class);
 
     public RetryExecutor(ConnectionManager manager, int maxAttempts) {
         this.manager = manager;

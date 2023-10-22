@@ -4,6 +4,8 @@ import java.util.Random;
 
 public final class DefaultConnectionManagerSimulation {
 
+    private DefaultConnectionManagerSimulation() {}
+
     private final static Random RANDOM = new Random();
     private final static double FAULTY_CONNECTION_PROBABILITY = 0;
 
