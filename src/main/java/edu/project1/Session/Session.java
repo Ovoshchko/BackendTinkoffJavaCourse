@@ -15,10 +15,12 @@ public class Session {
     private final int maxAttempts = 6;
     private final Set<Character> userAnswers;
     private int failedAttempts = 0;
+    private final WordBank wordBank;
 
     public Session(String word) {
         this.word = word;
         userAnswers = new HashSet<>();
+        wordBank = new WordBank();
     }
 
     public ResultInterface guess(char userLetter) {
@@ -43,7 +45,7 @@ public class Session {
     }
 
     public boolean wordIsNotValid() {
-        return WordBank.notValidLength(word);
+        return wordBank.notValidLength(word);
     }
 
     public boolean isWordGuessed() {

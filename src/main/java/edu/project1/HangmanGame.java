@@ -9,15 +9,17 @@ import java.util.Scanner;
 @SuppressWarnings("RegexpSinglelineJava")
 public class HangmanGame {
 
+    private final String exitCommand = "EXIT";
     private final Session session;
     private final RendererImpl renderer;
+    private final Scanner sc;
     private ResultInterface result;
-    private final Scanner sc = new Scanner(System.in);
 
 
     HangmanGame(String wordToGuess) {
         session = new Session(wordToGuess);
         renderer = new RendererImpl();
+        sc = new Scanner(System.in);
     }
 
     public void run() throws InvalidLengthException {
@@ -32,28 +34,28 @@ public class HangmanGame {
 
             System.out.println("Попробуйте угадать букву или введите EXIT для выхода");
 
-            try {
-                input  = sc.nextLine();
+            input  = sc.nextLine();
 
-                if (input.equalsIgnoreCase("exit")) {
-                    session.giveUp();
+            if (input == null) {
+                System.out.println("Прошу, введите букву. Виселица не любит пустоту.");
+                continue;
+            }
+
+            if (exitCommand.equalsIgnoreCase(input)) {
+                session.giveUp();
+            } else {
+
+                if (isLetter(input)) {
+                    result = session.guess(input.toUpperCase().charAt(0));
+                    renderer.render(result);
                 } else {
-
-                    if (isLetter(input)) {
-                        result = session.guess(input.toUpperCase().charAt(0));
-                        renderer.render(result);
-                    } else {
-                        System.out.println("Пожалуйста, введите букву или команду EXIT.\n");
-                    }
-
-                    if (session.isWordGuessed()) {
-                        System.out.println("ПОБЕДА!!!");
-                        return;
-                    }
+                    System.out.println("Пожалуйста, введите букву или команду EXIT.\n");
                 }
 
-            } catch (NullPointerException e) {
-                System.out.println("Пожалуйста не вводите пустоту. Виселица не любит такое.\n");
+                if (session.isWordGuessed()) {
+                    System.out.println("ПОБЕДА!!!");
+                    return;
+                }
             }
         }
 
@@ -64,6 +66,5 @@ public class HangmanGame {
     private static boolean isLetter(String input) {
         return (input.length() == 1) && (Character.isLetter(input.charAt(0)));
     }
-
 
 }

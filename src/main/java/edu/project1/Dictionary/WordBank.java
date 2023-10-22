@@ -4,12 +4,9 @@ import java.util.Random;
 import java.util.regex.Pattern;
 import org.jetbrains.annotations.NotNull;
 
-public final class WordBank implements Dictionary {
+public class WordBank implements Dictionary {
 
     private final static int MAX_WORD_LENGTH = 30;
-
-    private WordBank() {}
-
     private final static Random RANDOM = new Random();
     private final static Pattern PATTERN = Pattern.compile("^[A-Z]*$");
     private final static String[] DICTIONARY = {
@@ -17,12 +14,14 @@ public final class WordBank implements Dictionary {
         "DUNGEON", "FINAL", "LION", "PROGRAMMING"
     };
 
+    public WordBank() {}
+
     @NotNull
-    public static String getRandomWord() {
+    public String getRandomWord() {
         return DICTIONARY[RANDOM.nextInt(DICTIONARY.length)];
     }
 
-    public static boolean notValidLength(@NotNull String word) {
+    public boolean notValidLength(@NotNull String word) {
         return (word.length() > MAX_WORD_LENGTH) || (word.isEmpty()) || (!PATTERN.matcher(word).matches());
     }
 }

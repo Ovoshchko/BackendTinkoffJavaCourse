@@ -11,17 +11,18 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 @DisplayName("WordBank Class Test")
 public class WordBankTest {
 
+    private final WordBank wordBank = new WordBank();
     @RepeatedTest(50)
     @DisplayName("--WordBank NotNull getRandomWord test")
     void getRandomWordNotNullTest() {
-        assertNotEquals(null, WordBank.getRandomWord());
+        assertNotEquals(null, wordBank.getRandomWord());
     }
 
     @ParameterizedTest
     @DisplayName("--WordBank notValidLength function Test")
     @MethodSource("provideWordsWithDifferentLength")
     void notValidLengthTest(String word, boolean answer) {
-        assertEquals(answer, WordBank.notValidLength(word));
+        assertEquals(answer, wordBank.notValidLength(word));
     }
 
     private static Stream<Arguments> provideWordsWithDifferentLength() {
