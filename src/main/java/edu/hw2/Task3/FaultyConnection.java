@@ -7,13 +7,11 @@ import org.apache.logging.log4j.Logger;
 public class FaultyConnection implements Connection {
 
     private final static Logger LOGGER = LogManager.getLogger(FaultyConnection.class.getName());
-    private final static Random RANDOM = new Random();
-    private final static double FAULT_PROBABILITY = 1;
 
     FaultyConnection() {}
 
     public void execute(String command) {
-        if ((RANDOM.nextDouble() % 1) < FAULT_PROBABILITY) {
+        if (FaultConnectionSimulation.isConnectionFailed()) {
             throw new ConnectionException();
         } else {
             LOGGER.info("Execute command " + command);

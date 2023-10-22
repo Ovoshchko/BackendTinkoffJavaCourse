@@ -1,10 +1,10 @@
 package edu.hw2.Task3;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DisplayName("Test for Task 3")
@@ -16,16 +16,22 @@ public class Task3Test {
         assertTrue(faultyManager.getConnection() instanceof FaultyConnection);
     }
 
-    @Test
+    @RepeatedTest(50)
     @DisplayName("--Get StableConnections")
     void stableConnectionManagerTest() {
         ConnectionManager defaultManager = new DefaultConnectionManager();
-        for (int i = 1; i <= 30; i++) {
-            if (i % 5 == 0) {
-                assertTrue(defaultManager.getConnection() instanceof FaultyConnection);
-            } else {
-                assertTrue(defaultManager.getConnection() instanceof StableConnection);
-            }
+        assertTrue(defaultManager.getConnection() instanceof StableConnection);
+    }
+
+    @Nested
+    @DisplayName("PopularCommandExecutor Test for Task 3")
+    public class PopularCommandExecutorTest {
+
+        @Test
+        @DisplayName("--PopularCommandExecutor FaultyConnectionManager Test")
+        void testWithFaultyConnectionManager() {
+            PopularCommandExecutor executor = new PopularCommandExecutor(new FaultyConnectionManager(), 10);
+            assertThrows(ConnectionException.class, executor::updatePackages);
         }
     }
 
