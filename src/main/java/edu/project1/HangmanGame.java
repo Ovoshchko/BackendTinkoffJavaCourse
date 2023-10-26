@@ -9,7 +9,7 @@ import java.util.Scanner;
 @SuppressWarnings("RegexpSinglelineJava")
 public class HangmanGame {
 
-    private final String exitCommand = "EXIT";
+    private static final String exitCommand = "EXIT";
     private final Session session;
     private final RendererImpl renderer;
     private final Scanner sc;
