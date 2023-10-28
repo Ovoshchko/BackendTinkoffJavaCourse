@@ -9,6 +9,7 @@ public class NullComparator {
     public NullComparator() {
         comparator = Comparator.nullsFirst(Comparator.naturalOrder());
     }
+
     public Comparator<String> getComparator() {
         return comparator;
     }

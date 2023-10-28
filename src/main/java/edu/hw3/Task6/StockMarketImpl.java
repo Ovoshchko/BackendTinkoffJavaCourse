@@ -11,6 +11,7 @@ public class StockMarketImpl implements StockMarket {
     private final Queue<Stock> stockMarket = new PriorityQueue<>(
         Collections.reverseOrder(Comparator.comparingInt(Stock::value))
     );
+
     @Override
     public void add(Stock stock) {
         Objects.requireNonNull(stock);

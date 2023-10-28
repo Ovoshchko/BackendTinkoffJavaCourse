@@ -13,7 +13,7 @@ public class FreqDictionary {
 
         if (isValid(list)) {
             freqDict = Arrays.stream(list)
-                .collect(Collectors.groupingBy(s->s, Collectors.summingInt(s->1)));
+                .collect(Collectors.groupingBy(s -> s, Collectors.summingInt(s -> 1)));
         }
 
         return freqDict;

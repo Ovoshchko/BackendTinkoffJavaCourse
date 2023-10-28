@@ -1,14 +1,13 @@
 package edu.hw3.Task2;
 
-import edu.project1.Exception.InvalidLengthException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
 public class Clusterization {
 
-    private final static String UNBALANCED = "Ваша строка содержит несбалансированное сочетания";
     public static final String UNRECOGNISED = "Ваша строка содержит посторонние символы";
+    private final static String UNBALANCED = "Ваша строка содержит несбалансированное сочетания";
 
     public String[] clusterize(String input) {
 
@@ -21,7 +20,7 @@ public class Clusterization {
         Stack<Character> brackets = new Stack<>();
         StringBuilder currentCluster = new StringBuilder();
 
-        for (char bracket: input.toCharArray()) {
+        for (char bracket : input.toCharArray()) {
             if (bracket == '(') {
                 currentCluster.append(bracket);
                 brackets.push(bracket);

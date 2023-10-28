@@ -7,15 +7,16 @@ import java.util.Objects;
 
 public class BackwardIterator<T> implements Iterator {
 
+    private final static String NO_ELEMENT = "No element found";
     private final List<T> list;
     private int currentIndex;
-    private final static String NO_ELEMENT = "No element found";
 
     public BackwardIterator(List<T> list) {
         Objects.requireNonNull(list);
         this.list = list.reversed();
         currentIndex = 0;
     }
+
     @Override
     public boolean hasNext() {
         return currentIndex < list.size();

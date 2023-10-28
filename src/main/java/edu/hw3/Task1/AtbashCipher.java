@@ -17,13 +17,13 @@ public class AtbashCipher {
 
     public String getEncrypted(String sentence) {
 
-        if(isNotValid(sentence)) {
+        if (isNotValid(sentence)) {
             return "";
         }
 
         StringBuilder sentenceEncrypted = new StringBuilder();
 
-        for (char letter: sentence.toCharArray()) {
+        for (char letter : sentence.toCharArray()) {
 
             if (Character.isLetter(letter)) {
                 sentenceEncrypted.append(ATBASH_MAP.get(letter));

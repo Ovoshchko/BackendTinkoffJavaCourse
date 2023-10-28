@@ -3,9 +3,13 @@ package edu.hw3.Task4;
 import java.util.Map;
 import java.util.TreeMap;
 
+//Или можно обойти?
+@SuppressWarnings("MagicNumber")
 public class RomanConverter {
 
-    private final static TreeMap<Integer, String> romanMap = new TreeMap<>(){
+    public static final int MAX_VALUE = 3999;
+
+    private final static TreeMap<Integer, String> ROMAN_MAP = new TreeMap<>() {
         {
             put(1000, "M");
             put(900, "CM");
@@ -20,7 +24,12 @@ public class RomanConverter {
             put(5, "V");
             put(4, "IV");
             put(1, "I");
-        }};
+        }
+    };
+
+    private static boolean isNotValid(int arabic) {
+        return (arabic < 0) || (arabic > MAX_VALUE);
+    }
 
     public String convertToRoman(int arabic) {
 
@@ -31,7 +40,7 @@ public class RomanConverter {
         int copiedArabic = arabic;
         StringBuilder romanNumber = new StringBuilder();
 
-        for (Map.Entry<Integer, String> entry: romanMap.descendingMap().entrySet()) {
+        for (Map.Entry<Integer, String> entry : ROMAN_MAP.descendingMap().entrySet()) {
             while (copiedArabic >= entry.getKey()) {
                 copiedArabic -= entry.getKey();
                 romanNumber.append(entry.getValue());
@@ -39,9 +48,5 @@ public class RomanConverter {
         }
 
         return romanNumber.toString();
-    }
-
-    private static boolean isNotValid(int arabic) {
-        return (arabic < 0) || (arabic > 3999);
     }
 }
