@@ -1,15 +1,15 @@
 package edu.hw3.Task4;
 
 import java.util.Map;
+import java.util.NavigableMap;
 import java.util.TreeMap;
 
-//Или можно обойти?
 @SuppressWarnings("MagicNumber")
 public class RomanConverter {
 
     public static final int MAX_VALUE = 3999;
 
-    private final static TreeMap<Integer, String> ROMAN_MAP = new TreeMap<>() {
+    private final static NavigableMap<Integer, String> ROMAN_MAP = new TreeMap<>() {
         {
             put(1000, "M");
             put(900, "CM");
@@ -26,10 +26,6 @@ public class RomanConverter {
             put(1, "I");
         }
     };
-
-    private static boolean isNotValid(int arabic) {
-        return (arabic < 0) || (arabic > MAX_VALUE);
-    }
 
     public String convertToRoman(int arabic) {
 
@@ -48,5 +44,10 @@ public class RomanConverter {
         }
 
         return romanNumber.toString();
+    }
+
+
+    private static boolean isNotValid(int arabic) {
+        return (arabic < 0) || (arabic > MAX_VALUE);
     }
 }

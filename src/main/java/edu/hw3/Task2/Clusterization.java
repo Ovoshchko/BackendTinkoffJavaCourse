@@ -1,13 +1,23 @@
 package edu.hw3.Task2;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Stack;
 
 public class Clusterization {
 
-    public static final String UNRECOGNISED = "Ваша строка содержит посторонние символы";
+    public final static String UNRECOGNISED = "Ваша строка содержит посторонние символы";
     private final static String UNBALANCED = "Ваша строка содержит несбалансированное сочетания";
+    private static final Map<Character, Character> BRACKET_PAIRS = new HashMap<>();
+
+    static {
+        BRACKET_PAIRS.put('(', ')');
+        BRACKET_PAIRS.put('[', ']');
+        BRACKET_PAIRS.put('{', '}');
+        BRACKET_PAIRS.put('<', '>');
+    }
 
     public String[] clusterize(String input) {
 
@@ -21,11 +31,11 @@ public class Clusterization {
         StringBuilder currentCluster = new StringBuilder();
 
         for (char bracket : input.toCharArray()) {
-            if (bracket == '(') {
+            if (BRACKET_PAIRS.containsKey(bracket)) {
                 currentCluster.append(bracket);
                 brackets.push(bracket);
-            } else if (bracket == ')') {
-                if ((!brackets.isEmpty()) && (brackets.pop() == '(')) {
+            } else if (BRACKET_PAIRS.containsValue(bracket)) {
+                if ((!brackets.isEmpty()) && (BRACKET_PAIRS.get(brackets.pop()) == bracket)) {
                     currentCluster.append(bracket);
                 } else {
                     throw new IllegalArgumentException(UNBALANCED);

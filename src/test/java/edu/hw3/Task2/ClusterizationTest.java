@@ -36,19 +36,19 @@ public class ClusterizationTest {
 
     private static Stream<Arguments> getValidBrackets() {
         return Stream.of(
-            Arguments.of("(())()()((()))", new String[]{"(())", "()", "()", "((()))"}),
-            Arguments.of("()", new String[]{"()"}),
-            Arguments.of("((((((()))))))", new String[]{"((((((()))))))"})
+            Arguments.of("(<>)()()((()))", new String[]{"(<>)", "()", "()", "((()))"}),
+            Arguments.of("[]", new String[]{"[]"}),
+            Arguments.of("(((({<>[]}))))", new String[]{"(((({<>[]}))))"})
         );
     }
 
     private static Stream<Arguments> getUnbalancedBrackets() {
         return Stream.of(
-            Arguments.of("((())()()((()))))"),
-            Arguments.of("(()"),
+            Arguments.of("((<))()()((()))))"),
+            Arguments.of("(([])"),
             Arguments.of("(((((((3444)))))))"),
             Arguments.of("345tgfcd"),
-            Arguments.of(")")
+            Arguments.of("{)")
         );
     }
 }

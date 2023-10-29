@@ -1,5 +1,6 @@
 package edu.hw3.Task8;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -9,17 +10,17 @@ public class BackwardIterator<T> implements Iterator {
 
     private final static String NO_ELEMENT = "No element found";
     private final List<T> list;
-    private int currentIndex;
+    private int current;
 
     public BackwardIterator(List<T> list) {
         Objects.requireNonNull(list);
-        this.list = list.reversed();
-        currentIndex = 0;
+        this.list = new ArrayList<>(list.reversed());
+        current = 0;
     }
 
     @Override
     public boolean hasNext() {
-        return currentIndex < list.size();
+        return list.size() > current;
     }
 
     @Override
@@ -27,6 +28,6 @@ public class BackwardIterator<T> implements Iterator {
         if (!hasNext()) {
             throw new NoSuchElementException(NO_ELEMENT);
         }
-        return list.get(currentIndex++);
+        return list.get(current++);
     }
 }
