@@ -9,7 +9,7 @@ import java.util.Scanner;
 @SuppressWarnings("RegexpSinglelineJava")
 public class HangmanGame {
 
-    private final String exitCommand = "EXIT";
+    private static final String EXIT_COMMAND = "EXIT";
     private final Session session;
     private final RendererImpl renderer;
     private final Scanner sc;
@@ -41,7 +41,7 @@ public class HangmanGame {
                 continue;
             }
 
-            if (exitCommand.equalsIgnoreCase(input)) {
+            if (EXIT_COMMAND.equalsIgnoreCase(input)) {
                 session.giveUp();
             } else {
 
