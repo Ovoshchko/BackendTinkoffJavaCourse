@@ -4,6 +4,7 @@ import edu.project2.Models.Cell;
 import edu.project2.Models.CellType;
 import edu.project2.Models.Maze;
 import java.util.Arrays;
+import java.util.stream.IntStream;
 
 public class GeneratorUtil {
 
@@ -16,16 +17,18 @@ public class GeneratorUtil {
             && (y >= 0);
     }
 
-    public void fillVisitedCellsFalse(boolean[][] visitedCells) {
-        for (boolean[] row: visitedCells) {
-            Arrays.fill(row, false);
-        }
+    public void fillMazeWithWalls(Maze maze) {
+        IntStream.range(0, maze.getCells().length)
+            .boxed()
+            .flatMap(i -> IntStream.range(0, maze.getCells()[i].length)
+                .mapToObj(j -> new Cell(i, j, CellType.WALL)))
+            .forEach(cell -> maze.getCells()[cell.row()][cell.column()] = cell);
     }
 
-    public void fillMaze(Maze maze) {
+    public void fillMazeHalfWalls(Maze maze) {
         Cell[][] mazeCells = maze.getCells();
 
-        for (int height = 0; height < maze.getWidth(); height++) {
+        for (int height = 0; height < maze.getHeight(); height++) {
             if (height % 2 == 0) {
                 for (int width = 0; width < maze.getWidth(); width++) {
                     if (width % 2 == 0) {
@@ -40,5 +43,15 @@ public class GeneratorUtil {
                 }
             }
         }
+    }
+
+    public void fillVisitedCellsFalse(boolean[][] visitedCells) {
+        for (boolean[] row: visitedCells) {
+            Arrays.fill(row, false);
+        }
+    }
+
+    public boolean notProperMazeSize(int height, int width) {
+        return height <= 0 || width <= 0;
     }
 }

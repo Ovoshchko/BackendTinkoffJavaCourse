@@ -8,6 +8,7 @@ import java.util.List;
 public class RendererImpl implements Renderer {
 
     private final static int PRINT_CELL_SIZE = 3;
+    public static final String PATH_IMAGE = " • ";
 
     public String render(Maze maze) {
         StringBuilder mazePicture = new StringBuilder();
@@ -24,9 +25,9 @@ public class RendererImpl implements Renderer {
         int currentIndex = 0;
 
         for (Coordinate coordinate: path) {
-            currentIndex = (coordinate.y() + 1) * (PRINT_CELL_SIZE * maze.getWidth() + 3)
+            currentIndex = (coordinate.y() + 1) * (PRINT_CELL_SIZE * (maze.getWidth() + 1))
                 + (PRINT_CELL_SIZE * coordinate.x() + 1);
-            mazePictureWithPath.replace(currentIndex, currentIndex + PRINT_CELL_SIZE, " • ");
+            mazePictureWithPath.replace(currentIndex, currentIndex + PRINT_CELL_SIZE, PATH_IMAGE);
         }
 
         return mazePictureWithPath.toString();

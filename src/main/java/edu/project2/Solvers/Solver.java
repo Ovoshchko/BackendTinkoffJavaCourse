@@ -6,5 +6,13 @@ import java.util.List;
 
 public interface Solver {
 
-    List<Coordinate> solve(Maze maze);
+    /***
+     * Ищет путь по лабиринту между двумя точками
+     *
+     * @param maze Лабиринт
+     * @param startPoint Координата начальной точки
+     * @param finishPoint  Координата конечной точки
+     * @return Лист координат пути между точками
+     */
+    List<Coordinate> solve(Maze maze, Coordinate startPoint, Coordinate finishPoint);
 }

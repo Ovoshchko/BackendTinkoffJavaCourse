@@ -1,7 +1,7 @@
 package edu.project2.Models;
 
 import lombok.Getter;
-
+import lombok.Setter;
 
 /*
     Поскольку я взял модель, где стена также является клеткой, то размеры лабиринта берутся как двойной размер - 1
@@ -14,6 +14,8 @@ public class Maze {
 
     private final int width;
 
+    //Только для теста
+    @Setter
     private Cell[][] cells;
 
     public Maze(int height, int width) {

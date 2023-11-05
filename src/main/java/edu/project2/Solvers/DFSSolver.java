@@ -11,25 +11,40 @@ import java.util.Stack;
 
 public class DFSSolver implements Solver {
 
+    private final static String WRONG_COORDINATES = "Координаты вне лабиринта, попробуйте поискать в лабиринте";
     private final SolverUtil solverUtil = new SolverUtil();
 
+    /*
+    Поскольку лабиринт создается с представлением стен в качестве доп клеток, получаем, что координаты тоже необходимо
+    преобразовать
+    */
     @Override
-    public List<Coordinate> solve(Maze maze) {
+    public List<Coordinate> solve(Maze maze, Coordinate startPoint, Coordinate finishPoint) {
+
+        if (solverUtil.coordIsNotValid(maze, startPoint)
+                && (solverUtil.coordIsNotValid(maze, finishPoint))) {
+            throw new IllegalArgumentException(WRONG_COORDINATES);
+        }
+
         Stack<Coordinate> path = new Stack<>();
         boolean[][] visited = new boolean[maze.getHeight()][maze.getWidth()];
-        findPath(maze, path, visited, new Coordinate(0, 0));
+        solverUtil.fillVisitedCellsFalse(visited);
+
+        findPath(maze, path, visited, new Coordinate((startPoint.x() - 1) * 2, (startPoint.y() - 1) * 2),
+            new Coordinate((finishPoint.x() -  1) * 2, (finishPoint.y() - 1) * 2));
 
         return path.stream().toList();
     }
 
-    private void findPath(Maze maze, Stack<Coordinate> path, boolean[][] visited, Coordinate coordinate) {
+    private void findPath(Maze maze, Stack<Coordinate> path, boolean[][] visited, Coordinate coordinate,
+        Coordinate finishPoint) {
 
         DIRECTION[] dirs = DIRECTION.values();
         Collections.shuffle(Arrays.asList(dirs));
         path.push(coordinate);
         visited[coordinate.y()][coordinate.x()] = true;
 
-        if (solverUtil.endOfMaze(maze, coordinate.x(), coordinate.y())) {
+        if (solverUtil.endOfMaze(maze, coordinate, finishPoint)) {
             return;
         }
 
@@ -39,11 +54,11 @@ public class DFSSolver implements Solver {
             if ((solverUtil.cellInMazeRange(maze, nextCell.x(), nextCell.y()))
                     && (!visited[nextCell.y()][nextCell.x()])
                     && (maze.getCells()[nextCell.y()][nextCell.x()].type() == CellType.PASS)) {
-                findPath(maze, path, visited, nextCell);
+                findPath(maze, path, visited, nextCell, finishPoint);
             }
         }
 
-        if (!((path.isEmpty()) || (solverUtil.endOfMaze(maze, path.peek().x(), path.peek().y())))) {
+        if (!((path.isEmpty()) || (solverUtil.endOfMaze(maze, path.peek(), finishPoint)))) {
             path.pop();
         }
     }
