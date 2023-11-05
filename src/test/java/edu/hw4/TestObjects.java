@@ -40,8 +40,6 @@ public class TestObjects {
         new Animal("Fer ret", Animal.Type.CAT, Animal.Sex.F, 2, 12, 2, false)
     ));
 
-    private final AnimalValidator animalValidator = new AnimalValidator();
-
     public Animal getAnimalWithMaxNameLength() {
         Animal animalWithLongestName = new Animal("", Animal.Type.CAT, Animal.Sex.M, 10, 10, 10, false);
 
@@ -99,10 +97,10 @@ public class TestObjects {
     }
 
     public Integer getPawsSum() {
-        Integer sum = 0;
+        int sum = 0;
 
         for (Animal animal: animalList) {
-            sum += animal.paws();
+            sum += animal.type().getPaws();
         }
 
         return sum;
@@ -112,7 +110,7 @@ public class TestObjects {
         List<Animal> animals = new ArrayList<>();
 
         for (Animal animal: animalList) {
-            if (animal.age() != animal.paws()) {
+            if (animal.age() != animal.type().getPaws()) {
                 animals.add(animal);
             }
         }
@@ -252,7 +250,7 @@ public class TestObjects {
             currentErrors = animalValidator.validate(animal);
             if (!currentErrors.isEmpty()) {
                 for (ValidationError validationError: currentErrors) {
-                    currentString.append(validationError.getMessage()+"; ");
+                    currentString.append(validationError.fieldName()).append("; ");
                 }
                 currentString.replace(currentString.length() - 2, currentString.length(), "");
                 errors.put(animal.name(), currentString.toString());

@@ -1,6 +1,5 @@
 package edu.hw4;
 
-import edu.hw4.Validator.AnimalValidator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -15,6 +14,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public class AnimalUtilsTest {
 
     private final TestObjects testObject = new TestObjects();

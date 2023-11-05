@@ -1,8 +1,6 @@
 package edu.hw4;
 
-import edu.hw4.Errors.TooMuchHeightError;
 import edu.hw4.Errors.ValidationError;
-import edu.hw4.Errors.WeightIsToSmallError;
 import edu.hw4.Validator.AnimalValidator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -44,9 +42,10 @@ public class AnimalValidatorTest {
     private static Stream<HashMap<String, Set<ValidationError>>> getErrorsForTest() {
         return Stream.of(
             new HashMap<>() {{
-                put("1", new HashSet<>(List.of(WeightIsToSmallError.getError())));
-                put("2", new HashSet<>(List.of(TooMuchHeightError.getError())));
-                put("3", new HashSet<>(List.of(WeightIsToSmallError.getError(), TooMuchHeightError.getError())));
+                put("1", new HashSet<>(List.of(new ValidationError<Integer>("weight", -1))));
+                put("2", new HashSet<>(List.of(new ValidationError<Integer>("height", 10000))));
+                put("3", new HashSet<>(List.of(new ValidationError<>("weight", -4),
+                    new ValidationError<Integer>("height", 100000))));
             }}
         );
     }

@@ -135,7 +135,7 @@ public class AnimalUtils {
      */
     public Integer sumPaws(List<Animal> animals) {
         return animals.stream()
-            .mapToInt(Animal::paws).sum();
+            .mapToInt(animal -> animal.type().getPaws()).sum();
     }
 
     /***
@@ -146,7 +146,7 @@ public class AnimalUtils {
      */
     public List<Animal> getAnimalsWithUnequalPawsAndAge(List<Animal> animals) {
         return animals.stream()
-            .filter(animal -> animal.age() != animal.paws())
+            .filter(animal -> animal.age() != animal.type().getPaws())
             .toList();
     }
 
@@ -282,7 +282,7 @@ public class AnimalUtils {
                 Collectors.toMap(
                     Map.Entry::getKey,
                     error -> error.getValue().stream()
-                                .map(Throwable::getMessage)
+                                .map(ValidationError::fieldName)
                                 .collect(Collectors.joining("; "))
                 )
             );

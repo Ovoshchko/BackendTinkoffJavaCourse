@@ -1,13 +1,10 @@
 package edu.hw4.Validator;
 
 import edu.hw4.Animal;
-import edu.hw4.Errors.TooMuchHeightError;
 import edu.hw4.Errors.ValidationError;
-import edu.hw4.Errors.WeightIsToSmallError;
 import java.util.HashSet;
 import java.util.Set;
 
-@SuppressWarnings("")
 public class AnimalValidator {
 
     private final static int MAX_HEIGHT = 100;
@@ -19,11 +16,11 @@ public class AnimalValidator {
         Set<ValidationError> errors = new HashSet<>();
 
         if (animal.weight() < MIN_WEIGHT) {
-            errors.add(WeightIsToSmallError.getError());
+            errors.add(new ValidationError<Integer>("weight", animal.weight()));
         }
 
         if (animal.height() > MAX_HEIGHT) {
-            errors.add(TooMuchHeightError.getError());
+            errors.add(new ValidationError<Integer>("height", animal.height()));
         }
 
         return errors;
