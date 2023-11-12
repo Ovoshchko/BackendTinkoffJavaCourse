@@ -3,17 +3,13 @@ package edu.hw5.Task3;
 import java.time.LocalDate;
 import java.util.Optional;
 
-public class PatternChain {
+public final class PatternChain {
 
     private final PatternVariant patternVariant;
     private PatternChain nextPattern;
 
     private PatternChain(PatternVariant patternVariant) {
         this.patternVariant = patternVariant;
-    }
-
-    private void setNextPatternChain(PatternChain nextPattern) {
-        this.nextPattern = nextPattern;
     }
 
     public Optional<LocalDate> parseDate(String date) {
@@ -41,7 +37,7 @@ public class PatternChain {
         PatternChain currentPattern = null;
         PatternChain previousPattern;
 
-        for(PatternVariant patternVariant : patternVariants) {
+        for (PatternVariant patternVariant : patternVariants) {
             previousPattern = currentPattern;
             currentPattern = new PatternChain(patternVariant);
             currentPattern.setNextPatternChain(previousPattern);
@@ -52,6 +48,10 @@ public class PatternChain {
 
     private boolean isInvalidString(String input) {
         return (input == null) || (input.isBlank());
+    }
+
+    private void setNextPatternChain(PatternChain nextPattern) {
+        this.nextPattern = nextPattern;
     }
 
 }

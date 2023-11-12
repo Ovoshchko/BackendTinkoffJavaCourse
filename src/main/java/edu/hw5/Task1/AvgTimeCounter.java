@@ -55,12 +55,12 @@ public class AvgTimeCounter {
 
         for (String date: dates) {
             if (isDateValid(date)) {
-                try{
+                try {
                     inputDates = date.split(SPLIT_REGEX);
                     start = LocalDateTime.parse(inputDates[0], dateTimeFormatter);
                     end = LocalDateTime.parse(inputDates[1], dateTimeFormatter);
                     durations.add(Duration.between(start, end));
-                } catch(DateTimeParseException exception) {
+                } catch (DateTimeParseException exception) {
                     throw new DateFailedParseException();
                 }
             } else {
@@ -70,6 +70,7 @@ public class AvgTimeCounter {
 
         return durations;
     }
+
     private boolean isDateValid(String input) {
         return (input != null) && (input.matches(REGEX));
     }

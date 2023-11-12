@@ -9,7 +9,7 @@ public class DataParser {
     private final String space = " ";
 
     public Optional<LocalDate> parseDate(PatternVariant patternVariant, String date) {
-        return switch(patternVariant) {
+        return switch (patternVariant) {
             case SLASH_DATE -> parseSlashData(date);
             case DASH_DATE -> parseDashData(date);
             case TOMORROW ->  parseNeighborDate(DayChange.TOMORROW);
