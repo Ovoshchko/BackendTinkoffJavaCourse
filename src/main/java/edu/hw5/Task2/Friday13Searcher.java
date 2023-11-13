@@ -11,13 +11,13 @@ import java.util.stream.Stream;
 
 public class Friday13Searcher {
 
-    private final int thirteensDay = 13;
+    private final static int THIRTEENS_DAY = 13;
 
     public LocalDate searchNextFriday13(LocalDate currentDate) {
         TemporalAdjuster nextFriday13thAdjuster = TemporalAdjusters.ofDateAdjuster(date -> {
-            LocalDate nextFriday13 = (date.getDayOfMonth() >= thirteensDay)
-                ? currentDate.plusMonths(1).withDayOfMonth(thirteensDay)
-                : currentDate.withDayOfMonth(thirteensDay);
+            LocalDate nextFriday13 = (date.getDayOfMonth() >= THIRTEENS_DAY)
+                ? currentDate.plusMonths(1).withDayOfMonth(THIRTEENS_DAY)
+                : currentDate.withDayOfMonth(THIRTEENS_DAY);
 
             while (nextFriday13.getDayOfWeek() != DayOfWeek.FRIDAY) {
                 nextFriday13 = nextFriday13.plusMonths(1);
@@ -36,7 +36,7 @@ public class Friday13Searcher {
         YearMonth end = YearMonth.of(year + 1, 1);
 
         Stream.iterate(start, month -> month.isBefore(end), month -> month.plusMonths(1))
-            .map(m -> m.atDay(thirteensDay))
+            .map(m -> m.atDay(THIRTEENS_DAY))
             .filter(Friday13Searcher::isFriday)
             .forEach(fridays::add);
 
