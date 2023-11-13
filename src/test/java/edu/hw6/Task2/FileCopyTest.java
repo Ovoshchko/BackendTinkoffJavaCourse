@@ -1,6 +1,7 @@
 package edu.hw6.Task2;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,12 +17,21 @@ class FileCopyTest {
 
     private final static String COPY_TEMPLATE = " - копия";
     private final static String COPY_NUMBER = " (%d)";
+    private final static String PACKAGE_PATH = "src\\test\\resources\\edu\\hw6\\Task2";
     private final FileCopy fileCopy = new FileCopy();
     private final String extension = ".txt";
     private final String fileName = "NewFile";
-    private final String filePathString = "src/test/resources/edu/hw6/Task2/" + fileName + extension;
+    private final String filePathString = PACKAGE_PATH + "\\" + fileName + extension;
     private final Path path = Paths.get(filePathString);
 
+    @BeforeAll
+    static void create() {
+        try {
+            Files.createDirectories(Path.of(PACKAGE_PATH));
+        } catch (IOException exception) {
+            fail();
+        }
+    }
     @BeforeEach
     void init() {
         try {
@@ -44,7 +54,7 @@ class FileCopyTest {
 
         int numberOfCopies = 7;
 
-        String finalCopyPath = path.getParent().toString()+ "\\" + fileName + COPY_TEMPLATE
+        String finalCopyPath = PACKAGE_PATH + "\\" + fileName + COPY_TEMPLATE
             + String.format(COPY_NUMBER, numberOfCopies) + extension;
 
         Path result = path;
