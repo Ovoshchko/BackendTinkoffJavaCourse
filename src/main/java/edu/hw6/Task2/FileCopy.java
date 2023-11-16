@@ -1,10 +1,10 @@
 package edu.hw6.Task2;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class FileCopy {
 
@@ -27,9 +27,7 @@ public class FileCopy {
         Path newFileName = parent.resolve(headName + COPY_TEMPLATE + extension);
 
         while (Files.exists(newFileName)) {
-            newFileName = parent.resolve(
-                headName + COPY_TEMPLATE + String.format(COPY_NUMBER, ++count) + extension
-            );
+            newFileName = parent.resolve(headName + COPY_TEMPLATE + String.format(COPY_NUMBER, ++count) + extension);
         }
 
         try {

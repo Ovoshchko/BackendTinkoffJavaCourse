@@ -17,15 +17,15 @@ class FileCopyTest {
 
     private final static String COPY_TEMPLATE = " - копия";
     private final static String COPY_NUMBER = " (%d)";
-    private final static String PACKAGE_PATH = "src\\test\\resources\\edu\\hw6\\Task2";
+    private final static String PACKAGE_PATH = "src/test/resources/edu/hw6/Task2";
     private final FileCopy fileCopy = new FileCopy();
     private final String extension = ".txt";
     private final String fileName = "NewFile";
-    private final String filePathString = PACKAGE_PATH + "\\" + fileName + extension;
+    private final String filePathString = PACKAGE_PATH + "/" + fileName + extension;
     private final Path path = Paths.get(filePathString);
 
     @BeforeAll
-    static void create() {
+    static void init() {
         try {
             Files.createDirectories(Path.of(PACKAGE_PATH));
         } catch (IOException exception) {
@@ -33,7 +33,7 @@ class FileCopyTest {
         }
     }
     @BeforeEach
-    void init() {
+    void create() {
         try {
             Files.createFile(path);
         } catch (IOException e) {
@@ -42,7 +42,7 @@ class FileCopyTest {
     }
 
     @AfterEach
-    void finish() {
+    void delete() {
         for (File file: new File(path.getParent().toString()).listFiles()) {
             file.delete();
         }
@@ -54,7 +54,7 @@ class FileCopyTest {
 
         int numberOfCopies = 7;
 
-        String finalCopyPath = PACKAGE_PATH + "\\" + fileName + COPY_TEMPLATE
+        String finalCopyPath = PACKAGE_PATH + "/" + fileName + COPY_TEMPLATE
             + String.format(COPY_NUMBER, numberOfCopies) + extension;
 
         Path result = path;
@@ -63,7 +63,7 @@ class FileCopyTest {
             result = fileCopy.cloneFile(path);
         }
 
-        assertEquals(finalCopyPath, result.toString());
+        assertEquals(Paths.get(finalCopyPath), result);
     }
 
     @Test
@@ -74,6 +74,6 @@ class FileCopyTest {
         } catch (IOException e) {
             fail();
         }
-        assertEquals(path.toString(), fileCopy.cloneFile(path).toString());
+        assertEquals(path, fileCopy.cloneFile(path));
     }
 }
