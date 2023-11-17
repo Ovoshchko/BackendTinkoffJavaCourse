@@ -2,14 +2,13 @@ package edu.project2.Solvers;
 
 import edu.project2.Models.CellType;
 import edu.project2.Models.Coordinate;
-import edu.project2.Models.SolverDirections;
 import edu.project2.Models.Maze;
+import edu.project2.Models.SolverDirections;
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
-import java.util.Stack;
 
 public class DFSSolver implements Solver {
 
