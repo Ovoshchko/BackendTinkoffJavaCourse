@@ -10,6 +10,7 @@ public class FileCopy {
 
     private final static String COPY_TEMPLATE = " - копия";
     private final static String COPY_NUMBER = " (%d)";
+    private final static String DOT = ".";
     private final Logger logger = LogManager.getLogger(FileCopy.class);
 
     public Path cloneFile(Path path) {
@@ -19,8 +20,8 @@ public class FileCopy {
         }
 
         String fileName = path.getFileName().toString();
-        String headName = fileName.substring(0, fileName.indexOf("."));
-        String extension = fileName.substring(fileName.indexOf("."));
+        String headName = fileName.substring(0, fileName.indexOf(DOT));
+        String extension = fileName.substring(fileName.indexOf(DOT));
         Path parent = path.getParent();
 
         int count = 1;

@@ -3,34 +3,39 @@ package edu.hw6.Task6;
 import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.ServerSocket;
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@SuppressWarnings({"MultipleStringLiterals", "RegexpSinglelineJava"})
+//Метод Map.of ограничен, поэтому пришлось добавить магические числа в статический блок
+@SuppressWarnings({"MultipleStringLiterals", "RegexpSinglelineJava", "MagicNumber"})
 public class PortScanner {
 
-    private final static int[] PORTS_LIST = {
-        22, 23, 110, 123, 135, 137, 138, 443, 843, 3452, 3982, 5353
-    };
-    private final static Map<Integer, String> PORT_SERVICE_MAP = Map.of(
-        22, "SSH",
-        23, "Telnet",
-        110, "POP3",
-        123, "NTP",
-        135, "EPMAP",
-        137, "NetBIOS",
-        138, "NetBIOS",
-        443, "VMware vSphere Client",
-        5353, "mDNS"
-    );
+    private final static Map<Integer, String> PORT_SERVICE_MAP = new HashMap<>();
+
+    static {
+        PORT_SERVICE_MAP.put(22, "SSH");
+        PORT_SERVICE_MAP.put(23, "Telnet");
+        PORT_SERVICE_MAP.put(110, "POP3");
+        PORT_SERVICE_MAP.put(123, "NTP");
+        PORT_SERVICE_MAP.put(135, "EPMAP");
+        PORT_SERVICE_MAP.put(137, "NetBIOS");
+        PORT_SERVICE_MAP.put(138, "NetBIOS");
+        PORT_SERVICE_MAP.put(443, "VMware vSphere Client");
+        PORT_SERVICE_MAP.put(843, "");
+        PORT_SERVICE_MAP.put(3452, "");
+        PORT_SERVICE_MAP.put(3982, "");
+        PORT_SERVICE_MAP.put(5353, "mDNS");
+    }
+
     private final static String SPACE_STRING = "     ";
 
     public List<PortModel> portScan() {
 
-        List<PortModel> openPorts = new LinkedList<>();
+        List<PortModel> openPorts = new ArrayList<>();
 
-        for (int port: PORTS_LIST) {
+        for (Integer port: PORT_SERVICE_MAP.keySet()) {
             openPorts.add(getPortModel(port));
         }
 
