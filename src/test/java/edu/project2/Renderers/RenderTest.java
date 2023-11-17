@@ -37,18 +37,21 @@ public class RenderTest {
 
     private static Stream<Arguments> getMazeAndString() {
         return Stream.of(
-            Arguments.of(new RendererImpl(), new Cell[][]{
+            Arguments.of(new ConsoleRenderer(), new Cell[][]{
                 {new Cell(0, 0, CellType.PASS), new Cell(0, 1, CellType.PASS), new Cell(0, 2, CellType.PASS)},
                 {new Cell(1, 0, CellType.WALL), new Cell(1, 1, CellType.WALL), new Cell(1, 2, CellType.PASS)},
                 {new Cell(2, 0, CellType.PASS), new Cell(2, 1, CellType.PASS), new Cell(2, 2, CellType.PASS)}
             },
-                new String("|   ------|\n|         |\n|XXXXXX   |\n|         |\n|------   |\n"))
+                "|   ------|" + System.lineSeparator() + "|         |" + System.lineSeparator()
+                    + "|XXXXXX   |" + System.lineSeparator() + "|         |" + System.lineSeparator() + "|------   |"
+                    + System.lineSeparator()
+            )
         );
     }
 
     private static Stream<Arguments> getMazePathAndString() {
         return Stream.of(
-            Arguments.of(new RendererImpl(), new Cell[][]{
+            Arguments.of(new ConsoleRenderer(), new Cell[][]{
                     {new Cell(0, 0, CellType.PASS), new Cell(0, 1, CellType.PASS), new Cell(0, 2, CellType.PASS)},
                     {new Cell(1, 0, CellType.WALL), new Cell(1, 1, CellType.WALL), new Cell(1, 2, CellType.PASS)},
                     {new Cell(2, 0, CellType.PASS), new Cell(2, 1, CellType.PASS), new Cell(2, 2, CellType.PASS)}
@@ -60,7 +63,10 @@ public class RenderTest {
                     new Coordinate(2, 1),
                     new Coordinate(2, 2)
                 )),
-                new String("|   ------|\n| •  •  • |\n|XXXXXX • |\n|       • |\n|------   |\n"))
+                "|   ------|" + System.lineSeparator() +
+                    "| •  •  • |" + System.lineSeparator() + "|XXXXXX • |" + System.lineSeparator() +
+                    "|       • |" + System.lineSeparator() + "|------   |" + System.lineSeparator()
+            )
         );
     }
 }

@@ -19,7 +19,7 @@ public class SolverUtil {
         return !cellInMazeRange(maze, (coordinate.x() - 1) * 2, (coordinate.y() - 1) * 2);
     }
 
-    public boolean endOfMaze(Maze maze, Coordinate coordinate, Coordinate finishPoint) {
+    public boolean endOfMaze(Coordinate coordinate, Coordinate finishPoint) {
         return (coordinate.x() == finishPoint.x()) && (coordinate.y() == finishPoint.y());
     }
 

@@ -2,10 +2,12 @@ package edu.project2.Solvers;
 
 import edu.project2.Models.CellType;
 import edu.project2.Models.Coordinate;
-import edu.project2.Models.DIRECTION;
+import edu.project2.Models.SolverDirections;
 import edu.project2.Models.Maze;
+import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Deque;
 import java.util.List;
 import java.util.Stack;
 
@@ -26,7 +28,7 @@ public class DFSSolver implements Solver {
             throw new IllegalArgumentException(WRONG_COORDINATES);
         }
 
-        Stack<Coordinate> path = new Stack<>();
+        Deque<Coordinate> path = new ArrayDeque<>();
         boolean[][] visited = new boolean[maze.getHeight()][maze.getWidth()];
         solverUtil.fillVisitedCellsFalse(visited);
 
@@ -36,19 +38,19 @@ public class DFSSolver implements Solver {
         return path.stream().toList();
     }
 
-    private void findPath(Maze maze, Stack<Coordinate> path, boolean[][] visited, Coordinate coordinate,
+    private void findPath(Maze maze, Deque<Coordinate> path, boolean[][] visited, Coordinate coordinate,
         Coordinate finishPoint) {
 
-        DIRECTION[] dirs = DIRECTION.values();
+        SolverDirections[] dirs = SolverDirections.values();
         Collections.shuffle(Arrays.asList(dirs));
-        path.push(coordinate);
+        path.addLast(coordinate);
         visited[coordinate.y()][coordinate.x()] = true;
 
-        if (solverUtil.endOfMaze(maze, coordinate, finishPoint)) {
+        if (solverUtil.endOfMaze(coordinate, finishPoint)) {
             return;
         }
 
-        for (DIRECTION dir: dirs) {
+        for (SolverDirections dir: dirs) {
             Coordinate nextCell = new Coordinate(coordinate.x() + dir.getWidth(), coordinate.y() + dir.getHeight());
 
             if ((solverUtil.cellInMazeRange(maze, nextCell.x(), nextCell.y()))
@@ -58,8 +60,8 @@ public class DFSSolver implements Solver {
             }
         }
 
-        if (!((path.isEmpty()) || (solverUtil.endOfMaze(maze, path.peek(), finishPoint)))) {
-            path.pop();
+        if (!((path.isEmpty()) || (solverUtil.endOfMaze(path.getLast(), finishPoint)))) {
+            path.removeLast();
         }
     }
 }

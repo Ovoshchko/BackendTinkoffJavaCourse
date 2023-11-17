@@ -21,7 +21,8 @@ public class SolverTest {
         Coordinate start, Coordinate finish) {
         Maze maze = new Maze(cells.length / 2 + 1, cells[0].length / 2 + 1);
         maze.setCells(cells);
-
+        List<Coordinate> cells1 = solver.solve(maze, start, finish);
+        System.out.println(cells1.toString());
         assertArrayEquals(coordinates.toArray(), solver.solve(maze, start, finish).toArray());
     }
 

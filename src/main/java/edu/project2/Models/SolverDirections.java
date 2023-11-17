@@ -3,16 +3,16 @@ package edu.project2.Models;
 import lombok.Getter;
 
 @Getter
-public enum DIR {
-    NORTH(-2, 0),
-    SOUTH(2, 0),
-    WEST(0, -2),
-    EAST(0, 2);
+public enum SolverDirections {
+    NORTH(-1, 0),
+    SOUTH(1, 0),
+    WEST(0, -1),
+    EAST(0, 1);
 
     private final int height;
     private final int width;
 
-    DIR(int height, int width) {
+    SolverDirections(int height, int width) {
         this.height = height;
         this.width = width;
     }

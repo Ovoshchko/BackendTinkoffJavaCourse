@@ -3,7 +3,7 @@ package edu.project2.Generation;
 import edu.project2.Generation.Exception.NotProperMazeSizeException;
 import edu.project2.Models.Cell;
 import edu.project2.Models.CellType;
-import edu.project2.Models.DIR;
+import edu.project2.Models.GeneratorDirections;
 import edu.project2.Models.Maze;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +31,7 @@ public class PrimGenerator implements Generator {
     }
 
     private void generateMaze(Maze maze) {
-        DIR[] directions = DIR.values();
+        GeneratorDirections[] directions = GeneratorDirections.values();
         List<Cell> walls = new ArrayList<>();
         int currentX = 0;
         int currentY = 0;
@@ -51,14 +51,14 @@ public class PrimGenerator implements Generator {
                 int newX;
                 int newY;
 
-                for (DIR dir: directions) {
-                    newX = currentX + dir.getWidth();
-                    newY = currentY + dir.getHeight();
+                for (GeneratorDirections direction : directions) {
+                    newX = currentX + direction.getWidth();
+                    newY = currentY + direction.getHeight();
                     if (generatorUtil.cellInMazeRange(maze, newX, newY)
                             && maze.getCells()[newY][newX].type() == CellType.WALL) {
 
-                        maze.getCells()[newY - dir.getHeight() / 2][newX - dir.getWidth() / 2]
-                            = maze.getCells()[newY - dir.getHeight() / 2][newX - dir.getWidth() / 2]
+                        maze.getCells()[newY - direction.getHeight() / 2][newX - direction.getWidth() / 2]
+                            = maze.getCells()[newY - direction.getHeight() / 2][newX - direction.getWidth() / 2]
                                 .getNewCell(CellType.PASS);
                         maze.getCells()[newY][newX] = maze.getCells()[newY][newX].getNewCell(CellType.PASS);
                         walls.add(maze.getCells()[newY][newX]);

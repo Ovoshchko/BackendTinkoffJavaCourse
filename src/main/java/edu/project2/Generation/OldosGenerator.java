@@ -2,7 +2,7 @@ package edu.project2.Generation;
 
 import edu.project2.Generation.Exception.NotProperMazeSizeException;
 import edu.project2.Models.CellType;
-import edu.project2.Models.DIR;
+import edu.project2.Models.GeneratorDirections;
 import edu.project2.Models.Maze;
 import java.util.Arrays;
 import java.util.Collections;
@@ -33,18 +33,18 @@ public class OldosGenerator implements Generator {
     private void generateMaze(Maze maze, boolean[][] visited, int x, int y) {
         int nextX;
         int nextY;
-        DIR[] dirs = DIR.values();
+        GeneratorDirections[] generatorDirections = GeneratorDirections.values();
 
-        Collections.shuffle(Arrays.asList(dirs));
+        Collections.shuffle(Arrays.asList(generatorDirections));
         visited[y / 2][x / 2] = true;
 
-        for (DIR dir: dirs) {
-            nextX = x + dir.getWidth();
-            nextY = y + dir.getHeight();
+        for (GeneratorDirections direction : generatorDirections) {
+            nextX = x + direction.getWidth();
+            nextY = y + direction.getHeight();
 
             if (generatorUtil.cellInMazeRange(maze, nextX, nextY) && (!visited[nextY / 2][nextX / 2])) {
-                maze.getCells()[nextY - dir.getHeight() / 2][nextX - dir.getWidth() / 2]
-                    = maze.getCells()[nextY - dir.getHeight() % 2][nextX - dir.getWidth() % 2]
+                maze.getCells()[nextY - direction.getHeight() / 2][nextX - direction.getWidth() / 2]
+                    = maze.getCells()[nextY - direction.getHeight() % 2][nextX - direction.getWidth() % 2]
                     .getNewCell(CellType.PASS);
                 generateMaze(maze, visited, nextX, nextY);
             }

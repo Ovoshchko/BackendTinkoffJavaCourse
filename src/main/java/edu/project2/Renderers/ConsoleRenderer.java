@@ -5,9 +5,12 @@ import edu.project2.Models.Coordinate;
 import edu.project2.Models.Maze;
 import java.util.List;
 
-public class RendererImpl implements Renderer {
+public class ConsoleRenderer implements Renderer {
 
     private final static int PRINT_CELL_SIZE = 3;
+    private final static String MAZE_ENTER_BORDER = " ";
+    private final static String MAZE_HORIZ_BORDER = "|";
+    private final static String MAZE_VERTIC_BORDER = "-";
     public static final String PATH_IMAGE = " • ";
 
     public String render(Maze maze) {
@@ -37,22 +40,24 @@ public class RendererImpl implements Renderer {
         StringBuilder picture = new StringBuilder();
 
         for (Cell[] cellRow: maze.getCells()) {
-            picture.append("|");
+            picture.append(MAZE_HORIZ_BORDER);
             for (Cell cell: cellRow) {
                 picture.append(cell.type().getValue());
             }
-            picture.append("|\n");
+            picture.append(MAZE_HORIZ_BORDER).append(System.lineSeparator());
         }
 
         return picture.toString();
     }
 
     private String getUpperBorder(int size) {
-        return "|" + " ".repeat(PRINT_CELL_SIZE) + "-".repeat(PRINT_CELL_SIZE * (size - 1)) + "|" + "\n";
+        return MAZE_HORIZ_BORDER + MAZE_ENTER_BORDER.repeat(PRINT_CELL_SIZE)
+            + MAZE_VERTIC_BORDER.repeat(PRINT_CELL_SIZE * (size - 1)) + MAZE_HORIZ_BORDER + System.lineSeparator();
     }
 
     private String getLowerBorder(int size) {
-        return "|" + "-".repeat(PRINT_CELL_SIZE * (size - 1)) + " ".repeat(PRINT_CELL_SIZE) + "|" + "\n";
+        return MAZE_HORIZ_BORDER + MAZE_VERTIC_BORDER.repeat(PRINT_CELL_SIZE * (size - 1))
+            + MAZE_ENTER_BORDER.repeat(PRINT_CELL_SIZE) + MAZE_HORIZ_BORDER + System.lineSeparator();
     }
 
 
