@@ -11,7 +11,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 @DisplayName("RendererImpl Test")
-public class RendererImplTest {
+public class ConsoleRendererTest {
 
     private final static RendererImpl renderer = new RendererImpl();
 
