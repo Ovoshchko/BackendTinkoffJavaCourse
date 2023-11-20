@@ -9,6 +9,10 @@ public class AdocReportMaker implements AbstractReportMaker {
 
     private final static Integer COLUMN_WIDTH = 25;
     private final static String LAYER = " ".repeat(COLUMN_WIDTH + 1);
+    private final static String ETC = "...";
+    private final static String DIVIDER = "|";
+    public static final String CHAPTER = "== ";
+    public static final String BORDER = "|===";
 
     @Override
     public List<String> makeReport(List<Metric> metrics) {
@@ -24,7 +28,7 @@ public class AdocReportMaker implements AbstractReportMaker {
 
         StringBuilder table = new StringBuilder();
 
-        setBeginning(table);
+        setBeginning(table, responsesMetric.name());
         setHeader(table, metrics);
         setRows(table, metrics);
         setEnding(table);
@@ -52,7 +56,7 @@ public class AdocReportMaker implements AbstractReportMaker {
             rowString.append(createCell(value));
         }
 
-        rowString.append("|").append(System.lineSeparator());
+        rowString.append(System.lineSeparator());
 
         return rowString.toString();
     }
@@ -65,19 +69,20 @@ public class AdocReportMaker implements AbstractReportMaker {
     }
 
     private String createCell(String value) {
-        return "|" + String.format("%-" + COLUMN_WIDTH + "s", truncate(value, COLUMN_WIDTH));
+        return DIVIDER + String.format("%-" + COLUMN_WIDTH + "s", truncate(value, COLUMN_WIDTH));
     }
 
 
     private String truncate(String value, int maxLength) {
-        return value.length() > maxLength ? value.substring(0, maxLength - 3) + "..." : value;
+        return value.length() > maxLength ? value.substring(0, maxLength - ETC.length()) + ETC : value;
     }
 
-    private void setBeginning(StringBuilder table) {
-        table.append("|===").append(System.lineSeparator());
+    private void setBeginning(StringBuilder table, String name) {
+        table.append(CHAPTER).append(name).append(System.lineSeparator()).append(BORDER)
+            .append(System.lineSeparator());
     }
 
     private void setEnding(StringBuilder table) {
-        table.append("|===|").append(System.lineSeparator());
+        table.append(BORDER).append(System.lineSeparator());
     }
 }

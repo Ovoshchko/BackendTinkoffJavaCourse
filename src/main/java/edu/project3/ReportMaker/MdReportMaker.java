@@ -8,7 +8,9 @@ import java.util.Map;
 public class MdReportMaker implements AbstractReportMaker {
 
     private final static Integer COLUMN_WIDTH = 25;
-    private final static String LAYER = ":" + "-".repeat(COLUMN_WIDTH - 1);
+    private final static String LAYER = ":" + "-".repeat(COLUMN_WIDTH - 2) + ":";
+    public static final String DIVIDER = "|";
+    public static final String ETC = "...";
 
     @Override
     public List<String> makeReport(List<Metric> metrics) {
@@ -32,7 +34,7 @@ public class MdReportMaker implements AbstractReportMaker {
     }
 
     private void setName(StringBuilder table, Metric metric) {
-        table.append(metric.name()).append(System.lineSeparator()).append(System.lineSeparator());
+        table.append("#### ").append(metric.name()).append(System.lineSeparator()).append(System.lineSeparator());
     }
 
     private void setHeader(StringBuilder table, List<Map.Entry<String, List<String>>> rows) {
@@ -59,17 +61,17 @@ public class MdReportMaker implements AbstractReportMaker {
             rowString.append(createCell(value));
         }
 
-        rowString.append("|").append(System.lineSeparator());
+        rowString.append(DIVIDER).append(System.lineSeparator());
 
         return rowString.toString();
     }
 
     private String createCell(String value) {
-        return "|" + String.format("%-" + COLUMN_WIDTH + "s", truncate(value, COLUMN_WIDTH));
+        return DIVIDER + String.format("%-" + COLUMN_WIDTH + "s", truncate(value, COLUMN_WIDTH));
     }
 
 
     private String truncate(String value, int maxLength) {
-        return value.length() > maxLength ? value.substring(0, maxLength - 3) + "..." : value;
+        return value.length() > maxLength ? value.substring(0, maxLength - ETC.length()) + ETC : value;
     }
 }

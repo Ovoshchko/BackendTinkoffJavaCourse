@@ -1,9 +1,10 @@
 package edu.project3.LogReceiver;
 
+import edu.project3.Models.DateLimits;
+import edu.project3.Models.FileList;
 import java.io.IOException;
-import java.util.List;
 
 public interface AbstractReceiver {
 
-    List<?> receive(String path) throws IOException;
+    FileList receive(String path, DateLimits dateLimits) throws IOException;
 }

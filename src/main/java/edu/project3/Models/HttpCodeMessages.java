@@ -80,6 +80,8 @@ public class HttpCodeMessages {
         entry(511, "Network Authentication Required")
     );
 
+    private HttpCodeMessages() {}
+
     public static String getReasonForStatus(int status) {
         return REASONS.getOrDefault(status, UNKNOWN_STATUS);
     }

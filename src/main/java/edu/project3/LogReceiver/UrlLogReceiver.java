@@ -1,7 +1,8 @@
 package edu.project3.LogReceiver;
 
 import edu.project3.LogReader.NginxLogReader;
-import edu.project3.Models.NginxLog;
+import edu.project3.Models.DateLimits;
+import edu.project3.Models.FileList;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -12,7 +13,11 @@ import java.util.List;
 
 public class UrlLogReceiver implements AbstractReceiver {
 
-    public List<NginxLog> receive(String link) throws IOException {
+    public UrlLogReceiver() {
+
+    }
+
+    public FileList receive(String link, DateLimits dateLimits) throws IOException {
         List<String> logs = new ArrayList<>();
         NginxLogReader reader = new NginxLogReader();
 
@@ -27,12 +32,12 @@ public class UrlLogReceiver implements AbstractReceiver {
                 }
 
             } catch (IOException exception) {
-                throw new IOException();
+                throw new IOException(exception);
             }
         } catch (MalformedURLException ignore) {
             throw new IOException();
         }
 
-        return reader.readLogs(logs);
+        return new FileList(List.of(link), reader.readLogs(logs, dateLimits));
     }
 }
