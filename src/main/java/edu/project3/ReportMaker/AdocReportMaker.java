@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class AdocReportMaker implements AbstractReportMaker {
+public class AdocReportMaker implements ReportMaker {
 
     private final static Integer COLUMN_WIDTH = 25;
     private final static String LAYER = " ".repeat(COLUMN_WIDTH + 1);

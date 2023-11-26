@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-public class NginxReportSaver implements AbstractReportSaver {
+public class NginxReportSaver implements ReportSaver {
 
     private final static String PATH_TO_LOGS = "src/main/resources/edu/project3/";
     private final static String DATE_FORMAT = "yyyy-MM-dd_HH-mm-ss_SSSSSS";

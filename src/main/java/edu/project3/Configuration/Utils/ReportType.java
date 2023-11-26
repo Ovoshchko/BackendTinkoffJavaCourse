@@ -1,25 +1,25 @@
 package edu.project3.Configuration.Utils;
 
-import edu.project3.ReportMaker.AbstractReportMaker;
 import edu.project3.ReportMaker.AdocReportMaker;
 import edu.project3.ReportMaker.MdReportMaker;
+import edu.project3.ReportMaker.ReportMaker;
 
 public enum ReportType {
     MD("markdown") {
         @Override
-        public AbstractReportMaker createReportMaker() {
+        public ReportMaker createReportMaker() {
             return new MdReportMaker();
         }
     },
     ADOC("adoc") {
         @Override
-        public AbstractReportMaker createReportMaker() {
+        public ReportMaker createReportMaker() {
             return new AdocReportMaker();
         }
     };
 
     public final String format;
-    public abstract AbstractReportMaker createReportMaker();
+    public abstract ReportMaker createReportMaker();
 
     ReportType(String format) {
         this.format = format;

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class MdReportMaker implements AbstractReportMaker {
+public class MdReportMaker implements ReportMaker {
 
     private final static Integer COLUMN_WIDTH = 25;
     private final static String LAYER = ":" + "-".repeat(COLUMN_WIDTH - 2) + ":";

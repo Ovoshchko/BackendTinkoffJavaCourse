@@ -2,9 +2,9 @@ package edu.project3.Configuration;
 
 import edu.project3.Configuration.Utils.ReceiverType;
 import edu.project3.Configuration.Utils.ReportType;
-import edu.project3.LogReceiver.AbstractReceiver;
+import edu.project3.LogReceiver.Receiver;
 import edu.project3.Models.DateLimits;
-import edu.project3.ReportMaker.AbstractReportMaker;
+import edu.project3.ReportMaker.ReportMaker;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -17,13 +17,13 @@ public class Configuration {
     private final static String DATE_FORMAT = "yyyy-MM-dd";
     private final static int START_YEAR = 1970;
     private final String path;
-    private final AbstractReceiver receiver;
+    private final Receiver receiver;
     private final String format;
-    private final  AbstractReportMaker reportMaker;
+    private final ReportMaker reportMaker;
     private final DateLimits dateLimits;
 
     private Configuration(
-        String path, AbstractReceiver receiver, String format, AbstractReportMaker reportMaker, DateLimits dateLimits) {
+        String path, Receiver receiver, String format, ReportMaker reportMaker, DateLimits dateLimits) {
         this.path = Objects.requireNonNull(path);
         this.receiver = receiver;
         this.format = format;
@@ -66,11 +66,11 @@ public class Configuration {
         );
     }
 
-    public AbstractReceiver getReceiver() {
+    public Receiver getReceiver() {
         return receiver;
     }
 
-    public AbstractReportMaker getReportMaker() {
+    public ReportMaker getReportMaker() {
         return reportMaker;
     }
 

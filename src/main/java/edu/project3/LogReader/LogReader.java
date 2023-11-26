@@ -4,7 +4,7 @@ import edu.project3.Models.DateLimits;
 import edu.project3.Models.NginxLog;
 import java.util.List;
 
-public interface AbstractLogReader {
+public interface LogReader {
 
     List<NginxLog> readLogs(List<String> logs, DateLimits dateLimits);
 }

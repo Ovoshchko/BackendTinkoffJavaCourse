@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
-public interface AbstractReportSaver {
+public interface ReportSaver {
 
     Path save(String format, List<String> reports) throws IOException;
 }

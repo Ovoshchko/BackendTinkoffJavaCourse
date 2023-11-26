@@ -3,6 +3,11 @@ package edu.project3.LogAnalyzer;
 import edu.project3.Models.HttpCodeMessages;
 import edu.project3.Models.Metric;
 import edu.project3.Models.NginxLog;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,12 +15,23 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.OptionalDouble;
+import java.util.Properties;
 import java.util.stream.Collectors;
 
-public class NginxLogAnalyzer implements AbstractLogAnalyzer {
+public class NginxLogAnalyzer implements LogAnalyzer {
 
     private final static int TOP_COUNT = 3;
-    public static final String COUNT_NAME = "Количество";
+    public static final String RESOURCE_PATH = "src/main/resources/edu/project3/LogAnalyzer/properties_ru.properties";
+    public static final String AMOUNT_PROPERTY = "amount";
+    private Properties properties = new Properties();
+
+    public NginxLogAnalyzer() {
+        try (InputStream input = new FileInputStream(RESOURCE_PATH)) {
+            properties.load(new InputStreamReader(input, StandardCharsets.UTF_8));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @Override
     public List<Metric> getLogMetrics(List<String> filenames, List<NginxLog> logs) {
@@ -29,25 +45,25 @@ public class NginxLogAnalyzer implements AbstractLogAnalyzer {
     }
 
     private Metric getAvgInformation(List<String> filenames, List<NginxLog> logs) {
-        Metric avgInformation = new Metric("Общая информация", new LinkedHashMap<>());
+        Metric avgInformation = new Metric(properties.getProperty("average_information"), new LinkedHashMap<>());
         Map<String, List<String>> metricList = avgInformation.metrics();
 
-        metricList.put("Метрика", List.of("Значение"));
-        metricList.put("Файл(-ы)", filenames);
-        metricList.put("Начальная дата", getStartDate(logs));
-        metricList.put("Конечная дата", getLastDate(logs));
-        metricList.put("Количество запросов", getValidLogsAmount(logs));
-        metricList.put("Среднее количество байт", getAvgByteSize(logs));
+        metricList.put(properties.getProperty("metric"), List.of(properties.getProperty("value")));
+        metricList.put(properties.getProperty("files"), filenames);
+        metricList.put(properties.getProperty("initial_date"), getStartDate(logs));
+        metricList.put(properties.getProperty("last_date"), getLastDate(logs));
+        metricList.put(properties.getProperty("received_amount"), getValidLogsAmount(logs));
+        metricList.put(properties.getProperty("average_bytes"), getAvgByteSize(logs));
 
         return avgInformation;
     }
 
     private Metric getMostRequestedFiles(List<NginxLog> logs) {
-        return new Metric("Запрашиваемые ресурсы", getMostRequestedFilesCount(logs));
+        return new Metric(properties.getProperty("requested_resources"), getMostRequestedFilesCount(logs));
     }
 
     private Metric getAllResponseCodes(List<NginxLog> logs) {
-        return new Metric("Коды ответа", getCountedResponseCodes(logs));
+        return new Metric(properties.getProperty("response_codes"), getCountedResponseCodes(logs));
     }
 
     private List<String> getStartDate(List<NginxLog> logs) {
@@ -74,7 +90,7 @@ public class NginxLogAnalyzer implements AbstractLogAnalyzer {
 
     private Map<String, List<String>> getMostRequestedFilesCount(List<NginxLog> logs) {
         Map<String, List<String>> filesMetric = new LinkedHashMap<>();
-        filesMetric.put("Ресурс", List.of(COUNT_NAME));
+        filesMetric.put(properties.getProperty("resource"), List.of(properties.getProperty(AMOUNT_PROPERTY)));
         logs.stream()
             .collect(Collectors.groupingBy(NginxLog::resource, Collectors.counting()))
             .entrySet()
@@ -94,7 +110,9 @@ public class NginxLogAnalyzer implements AbstractLogAnalyzer {
 
     private Map<String, List<String>> getCountedResponseCodes(List<NginxLog> logs) {
         Map<String, List<String>> responsesMetric = new LinkedHashMap<>();
-        responsesMetric.put("Код", List.of("Имя", COUNT_NAME));
+        responsesMetric.put(properties.getProperty("code"), List.of(
+            properties.getProperty("name"), properties.getProperty(AMOUNT_PROPERTY)
+        ));
         logs.stream()
             .collect(Collectors.groupingBy(NginxLog::responseCode, Collectors.counting()))
             .entrySet()

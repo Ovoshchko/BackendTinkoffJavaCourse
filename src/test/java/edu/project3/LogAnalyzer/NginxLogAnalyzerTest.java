@@ -22,7 +22,8 @@ class NginxLogAnalyzerTest {
     @DisplayName("--NginxLogAnalyzer")
     @MethodSource("getLogs")
     void getLogMetrics(List<String> fileNames, List<NginxLog> logs) {
-        assertEquals(3, logAnalyzer.getLogMetrics(fileNames, logs).size());
+        List<Metric> an = logAnalyzer.getLogMetrics(fileNames, logs);
+        assertEquals(3, an.size());
     }
 
     private static Stream<Arguments> getLogs() {

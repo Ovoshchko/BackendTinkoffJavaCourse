@@ -1,20 +1,18 @@
 package edu.project3.Configuration;
 
-import edu.project3.LogReceiver.AbstractReceiver;
+import edu.project3.LogReceiver.Receiver;
 import edu.project3.LogReceiver.LocalLogReceiver;
 import edu.project3.LogReceiver.UrlLogReceiver;
 import edu.project3.Models.DateLimits;
-import edu.project3.ReportMaker.AbstractReportMaker;
+import edu.project3.ReportMaker.ReportMaker;
 import edu.project3.ReportMaker.AdocReportMaker;
 import edu.project3.ReportMaker.MdReportMaker;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,8 +21,8 @@ class ConfigurationTest {
     @ParameterizedTest
     @DisplayName("--Configurations test")
     @MethodSource("provideArgs")
-    void configure(String[] args, String path, Class<? extends AbstractReceiver> receiver, String format,
-        Class<? extends AbstractReportMaker> reportMaker, DateLimits dateLimits
+    void configure(String[] args, String path, Class<? extends Receiver> receiver, String format,
+                   Class<? extends ReportMaker> reportMaker, DateLimits dateLimits
         ) {
         Configuration configuration = Configuration.configure(args);
         assertEquals(path, configuration.getPath());

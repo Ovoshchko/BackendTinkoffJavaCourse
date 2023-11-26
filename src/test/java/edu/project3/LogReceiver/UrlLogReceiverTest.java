@@ -10,43 +10,44 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 
-class AbstractReceiverTest {
+class UrlLogReceiverTest {
 
-    private final String filePath = "src/test/resources/edu/project3/LogReader/log3.txt";
+    private final String filePath = "https://raw.githubusercontent.com/elastic/examples/master/Common%20Data%20Formats/nginx_logs/nginx_logs";
 
     @ParameterizedTest
     @DisplayName("--Receiver Test")
     @MethodSource("provideFileContent")
-    void receive(AbstractReceiver receiver, FileList fileList, DateLimits dateLimits) throws IOException {
+    void receive(Receiver receiver, FileList fileList, DateLimits dateLimits) throws IOException {
         FileList result = receiver.receive(filePath, dateLimits);
-        assertEquals(fileList.files(), result.files());
-        assertEquals(fileList.metrics(), result.metrics());
+        assertEquals(51462, result.metrics().size());
+        assertEquals(fileList.metrics().get(0), result.metrics().get(10));
     }
 
     private static Stream<Arguments> provideFileContent() {
         return Stream.of(
             Arguments.of(
-                new LocalLogReceiver(),
-                new FileList(List.of("log3.txt"), List.of(
-                    new NginxLog(
-                        "93.180.71.3",
-                        LocalDateTime.of(2015, 5, 17, 8, 5, 32),
-                        HttpMethod.GET,
-                        "/downloads/product_1",
-                        "HTTP/1.1",
-                        304,
-                        0
+                new UrlLogReceiver(),
+                new FileList(List.of("https://raw.githubusercontent.com/elastic/examples/master/Common%20Data%20Formats/nginx_logs/nginx_logs"),
+                    List.of(
+                        new NginxLog(
+                            "217.168.17.5",
+                            LocalDateTime.of(2015, 5, 17, 8, 5, 12),
+                            HttpMethod.GET,
+                            "/downloads/product_2",
+                            "HTTP/1.1",
+                            200,
+                            3316
+                        )
                     )
-                )),
+                ),
                 new DateLimits(LocalDate.of(1970, 1, 1), LocalDate.now())
             )
         );

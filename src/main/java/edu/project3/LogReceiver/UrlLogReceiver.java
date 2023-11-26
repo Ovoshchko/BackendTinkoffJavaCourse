@@ -11,7 +11,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UrlLogReceiver implements AbstractReceiver {
+public class UrlLogReceiver implements Receiver {
 
     public UrlLogReceiver() {
 

@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LocalLogReceiver implements AbstractReceiver {
+public class LocalLogReceiver implements Receiver {
 
     public LocalLogReceiver() {
 

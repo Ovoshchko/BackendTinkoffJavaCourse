@@ -6,7 +6,7 @@ import edu.project3.Models.NginxLog;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NginxLogReader implements AbstractLogReader {
+public class NginxLogReader implements LogReader {
 
     @Override
     public List<NginxLog> readLogs(List<String> logs, DateLimits dateLimits) {
