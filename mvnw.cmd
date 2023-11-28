@@ -21,7 +21,7 @@
 @REM Apache Maven Wrapper startup batch script, version 3.2.0
 @REM
 @REM Required ENV vars:
-@REM JAVA_HOME - location of a JDK home dir
+@REM JAVA_HOME - location of a JDK home generatorDirections
 @REM
 @REM Optional ENV vars
 @REM MAVEN_BATCH_ECHO - set to 'on' to enable the echoing of the batch commands
@@ -81,7 +81,7 @@ goto error
 
 :init
 
-@REM Find the project base dir, i.e. the directory that contains the folder ".mvn".
+@REM Find the project base generatorDirections, i.e. the directory that contains the folder ".mvn".
 @REM Fallback to current working directory if not found.
 
 set MAVEN_PROJECTBASEDIR=%MAVEN_BASEDIR%
