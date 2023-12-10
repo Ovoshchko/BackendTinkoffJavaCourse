@@ -8,11 +8,14 @@ import java.net.SocketException;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import static java.lang.System.exit;
 
 @SuppressWarnings("RegexpSinglelineJava")
 public class Server extends Thread {
 
+    private final static Logger LOGGER = LogManager.getLogger(Server.class);
     private final static int THREAD_COUNT = 3;
     private final static String EXIT_COMMAND = "exit";
     private final static int PORT = 8080;
@@ -61,12 +64,14 @@ public class Server extends Thread {
                 executorService.submit(clientThread);
             }
         } catch (SocketException exception) {
-            System.out.println("Server was stopped");
-            exit(0);
+            LOGGER.info("Server was stopped");
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e);
         } finally {
-            executorService.shutdown();
+            for (var thread: executorService.shutdownNow()) {
+                ((ClientThread) thread).close();
+            }
+            executorService.close();
         }
     }
 
