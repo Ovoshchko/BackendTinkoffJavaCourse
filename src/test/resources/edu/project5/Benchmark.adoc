@@ -8,3 +8,4 @@
 |BenchmarkPerformanceTest.handler            |avgt  |4,535    |ns/op
 |BenchmarkPerformanceTest.reflection         |avgt  |8,957    |ns/op
 |===
+
