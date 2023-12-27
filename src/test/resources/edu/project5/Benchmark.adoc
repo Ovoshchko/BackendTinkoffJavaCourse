@@ -1,0 +1,11 @@
+== Результаты
+
+|===
+|Benchmark                                   |Mode  |Score   |Units
+
+|BenchmarkPerformanceTest.directAccess       |avgt  |0,667    |ns/op
+|BenchmarkPerformanceTest.lambdaMetafactory  |avgt  |0,929    |ns/op
+|BenchmarkPerformanceTest.handler            |avgt  |4,535    |ns/op
+|BenchmarkPerformanceTest.reflection         |avgt  |8,957    |ns/op
+|===
+
